@@ -51,7 +51,7 @@ async def on_message(message:discord.Message):
                                  stderr=subprocess.STDOUT)
             for line in iter(p.stdout.readline, b''):
                 msg += line.rstrip().decode("utf-8")+"\n"
-                await m.edit(m)
+                await m.edit(msg)
             msg += "------------- EXITED -------------\nrestarting..."
             await m.edit(msg)
 
