@@ -1,6 +1,8 @@
 # インストールした discord.py を読み込む
+import os
 import random
 import subprocess
+import sys
 
 import discord
 
@@ -19,6 +21,9 @@ client = discord.Client()
 async def on_ready():
     # 起動したらターミナルにログイン通知が表示される
     print('ログインしました')
+    if len(sys.argv) == 2:
+        channel = client.get_channel(int(os.environ["ID_DISCORD_CL"]))
+        channel.send("restarted. command completed.")
     await client.change_presence(activity=discord.Activity(type=discord.ActivityType.playing, name='ひまだよーあそんでよー'))
 
 
@@ -44,7 +49,7 @@ async def on_message(message:discord.Message):
     elif mc == "/restart":
         if 799842587909423146 in list(map(lambda n: n.id, message.author.roles)):
             msg = "You had the required permissions for this command.\nExecute the command.\n***The bot will be " \
-                  "temporarily unavailable!***\n------------- LOG -------------"
+                  "temporarily unavailable!***\n------------- LOG -------------\n"
             m: discord.Message = await message.channel.send(msg)
             p = subprocess.Popen(["git","pull"],
                                  stdout=subprocess.PIPE,
@@ -54,7 +59,9 @@ async def on_message(message:discord.Message):
                 await m.edit(content=msg)
             msg += "------------- EXITED -------------\nrestarting..."
             await m.edit(content=msg)
-
+            print("exit.")
+            os.environ["ID_DISCORD_CL"] = message.channel.id
+            sys.exit()
         else:
             await message.channel.send(
                 "***You do not have the required permissions to execute this command. Please contact admin.***"
