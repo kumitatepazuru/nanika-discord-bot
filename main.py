@@ -60,7 +60,7 @@ async def on_message(message:discord.Message):
             msg += "------------- EXITED -------------\nrestarting..."
             await m.edit(content=msg)
             print("exit.")
-            os.environ["ID_DISCORD_CL"] = message.channel.id
+            os.environ["ID_DISCORD_CL"] = str(message.channel.id)
             sys.exit()
         else:
             await message.channel.send(
