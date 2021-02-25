@@ -24,7 +24,7 @@ async def on_ready():
     if len(sys.argv) == 2:
         with open("ID_DISCORD_CL") as f:
             channel = client.get_channel(int(f.read().splitlines()[0]))
-            channel.send("restarted. command completed.")
+            await channel.send("restarted. command completed.")
         os.remove("ID_DISCORD_CL")
     await client.change_presence(activity=discord.Activity(type=discord.ActivityType.playing, name='ひまだよーあそんでよー'))
 
