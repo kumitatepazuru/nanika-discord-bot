@@ -53,7 +53,7 @@ async def on_message(message:discord.Message):
                 msg += line.rstrip().decode("utf-8")+"\n"
                 await m.edit(m)
             msg += "------------- EXITED -------------\nrestarting..."
-            await m.edit(m)
+            await m.edit(msg)
 
         else:
             await message.channel.send(
