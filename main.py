@@ -30,7 +30,7 @@ w = waribashi()
 
 # メッセージ受信時に動作する処理
 @client.event
-async def on_message(message):
+async def on_message(message:discord.Message):
     global jyanken_f
     mc = message.content
     if mc.find("おはよう") != -1:
@@ -45,13 +45,17 @@ async def on_message(message):
         if 799842587909423146 in list(map(lambda n: n.id, message.author.roles)):
             await message.channel.send(
                 "You had the required permissions for this command.\nExecute the command.\n***The bot will be "
-                "temporarily unavailable!***"
+                "temporarily unavailable!***\n------------- LOG -------------"
             )
             p = subprocess.Popen(["git","pull"],
                                  stdout=subprocess.PIPE,
                                  stderr=subprocess.STDOUT)
+            msg = "loading..."
+            m = await message.channel.send(msg)
+            msg = ""
             for line in iter(p.stdout.readline, b''):
-                await message.channel.send(line.rstrip().decode("utf-8"))
+                msg += line.rstrip().decode("utf-8")+"\n"
+                await m.edit(m)
         else:
             await message.channel.send(
                 "***You do not have the required permissions to execute this command. Please contact admin.***"
