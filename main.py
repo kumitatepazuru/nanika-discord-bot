@@ -51,7 +51,7 @@ async def on_message(message):
                                  stdout=subprocess.PIPE,
                                  stderr=subprocess.STDOUT)
             for line in iter(p.stdout.readline, b''):
-                await message.channel.send(line.rstrip())
+                await message.channel.send(line.rstrip().decode("utf-8"))
         else:
             await message.channel.send(
                 "***You do not have the required permissions to execute this command. Please contact admin.***"
