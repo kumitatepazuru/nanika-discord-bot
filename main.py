@@ -43,19 +43,18 @@ async def on_message(message:discord.Message):
     #     await w.waribashi_start(client, message)
     elif mc == "/restart":
         if 799842587909423146 in list(map(lambda n: n.id, message.author.roles)):
-            await message.channel.send(
-                "You had the required permissions for this command.\nExecute the command.\n***The bot will be "
-                "temporarily unavailable!***\n------------- LOG -------------"
-            )
+            msg = "You had the required permissions for this command.\nExecute the command.\n***The bot will be " \
+                  "temporarily unavailable!***\n------------- LOG -------------"
+            m = await message.channel.send(msg)
             p = subprocess.Popen(["git","pull"],
                                  stdout=subprocess.PIPE,
                                  stderr=subprocess.STDOUT)
-            msg = "loading..."
-            m = await message.channel.send(msg)
-            msg = ""
             for line in iter(p.stdout.readline, b''):
                 msg += line.rstrip().decode("utf-8")+"\n"
                 await m.edit(m)
+            msg += "------------- EXITED -------------\nrestarting..."
+            await m.edit(m)
+
         else:
             await message.channel.send(
                 "***You do not have the required permissions to execute this command. Please contact admin.***"
