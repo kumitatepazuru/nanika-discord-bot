@@ -1,12 +1,14 @@
 # インストールした discord.py を読み込む
-import discord
 import random
+import subprocess
 
-# 自分のBotのアクセストークンに置き換えてください
+import discord
+
 from jyanken import jyanken
 from waribashi import waribashi
 
-TOKEN = 'ODExNzI1NDQxNzAxMjQ5MDU0.YC2YOg.dTmGJ8vOToA1zQEnEgvu39oOkoQ'
+with open("token") as tk:
+    TOKEN = tk.read().splitlines()[0]
 
 # 接続に必要なオブジェクトを生成
 client = discord.Client()
@@ -37,8 +39,23 @@ async def on_message(message):
         await message.channel.send(random.choice(tadaima_list))
     elif mc.split(" ")[0] == "/jyanken":
         await j.jyanken_cmd(client, message)
-    elif mc == "/waribashi":
-        await w.waribashi_start(client, message)
+    # elif mc == "/waribashi":
+    #     await w.waribashi_start(client, message)
+    elif mc == "/restart":
+        if 799842587909423146 in list(map(lambda n: n.id, message.author.roles)):
+            await message.channel.send(
+                "You had the required permissions for this command.\nExecute the command.\n***The bot will be "
+                "temporarily unavailable!***"
+            )
+            p = subprocess.Popen(["git","pull"],
+                                 stdout=subprocess.PIPE,
+                                 stderr=subprocess.STDOUT)
+            for line in iter(p.stdout.readline, b''):
+                await message.channel.send(line.rstrip())
+        else:
+            await message.channel.send(
+                "***You do not have the required permissions to execute this command. Please contact admin.***"
+            )
 
 
 # Botの起動とDiscordサーバーへの接続
