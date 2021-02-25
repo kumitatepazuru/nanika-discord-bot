@@ -45,15 +45,15 @@ async def on_message(message:discord.Message):
         if 799842587909423146 in list(map(lambda n: n.id, message.author.roles)):
             msg = "You had the required permissions for this command.\nExecute the command.\n***The bot will be " \
                   "temporarily unavailable!***\n------------- LOG -------------"
-            m = await message.channel.send(msg)
+            m: discord.Message = await message.channel.send(msg)
             p = subprocess.Popen(["git","pull"],
                                  stdout=subprocess.PIPE,
                                  stderr=subprocess.STDOUT)
             for line in iter(p.stdout.readline, b''):
                 msg += line.rstrip().decode("utf-8")+"\n"
-                await m.edit(msg)
+                await m.edit(content=msg)
             msg += "------------- EXITED -------------\nrestarting..."
-            await m.edit(msg)
+            await m.edit(content=msg)
 
         else:
             await message.channel.send(
