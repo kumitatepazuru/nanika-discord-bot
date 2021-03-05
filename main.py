@@ -44,6 +44,7 @@ async def on_ready():
 
 ohayo_list = ("おはようございまーす！", "おはよう★", "おはようでございます！", "ぉは(σ。ゝω・)σYO!!", "チャオ♪(´・ω・`)ノ")
 tadaima_list = ("ｵｶｴﾘ～!!ヽ(*≧ω≦)ﾉ", "ヾ(*ゝω・*)ノおかえり～", "帰って来た!?Σ(｀ω゜´*)三｡:+.゜ヽ(*′ﾟω`)ﾉﾞ｡:+.゜おかえりん")
+doya_list = ("(๑⁼̴̀д⁼̴́๑)ﾄﾞﾔｯ‼","(๑• ̀д•́ )✧+°ﾄﾞﾔｯ","o(`･ω´･+o) ﾄﾞﾔｧ…！","(　-`ω-)どや！","(●´ิ∀´ิ●)ﾄﾞﾔｧ","( ´´ิ∀´ิ` )","( ｰ̀ωｰ́ )","o(`･ω´･+o) ﾄﾞﾔ","( *｀ω´) ﾄﾞﾔｧ")
 j = jyanken()
 w = waribashi()
 
@@ -85,7 +86,7 @@ async def on_message(message: discord.Message):
                 "***You do not have the required permissions to execute this command. Please contact admin.***"
             )
     elif mc == "/doya":
-        await message.channel.send("o(`･ω´･+o) ﾄﾞﾔ")
+        await message.channel.send(random.choice(doya_list))
     elif mc.find("どやぁ") != -1 or mc.find("どやあ") != -1 or mc.find("どや") != -1 or mc.find("どやどや") != -1:
         await message.channel.send("wwwwwwwwwwwwwwwwwwwww")
     elif mc.find("うんち") != -1 or mc.find("うんこ") != -1:
