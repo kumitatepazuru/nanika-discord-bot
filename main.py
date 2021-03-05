@@ -6,9 +6,10 @@ import sys
 
 import discord
 
-from bmi import bmi
-from jyanken import jyanken
-from waribashi import waribashi
+from kinou.bmi import bmi
+from kinou.jyanken import jyanken
+from kinou.waribashi import waribashi
+from kinou.help import help
 
 with open("token") as tk:
     TOKEN = tk.read().splitlines()[0]
@@ -93,7 +94,7 @@ async def on_message(message:discord.Message):
                 "***You do not have the required permissions to execute this command. Please contact admin.***"
             )
     elif mc == "/help":
-        pass
+        await help(message)
     elif mc.split(" ")[0] == "/bmi":
         await bmi(mc, message)
 
