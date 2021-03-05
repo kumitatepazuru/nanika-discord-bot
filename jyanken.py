@@ -17,41 +17,43 @@ class jyanken:
         elif len(mc.split(" ")) == 1:
             await message.channel.send("じゃんけんは"+message.channel.name + " ですでに開始しています。`/jyanken [p|g|c]` でじゃんけんをしてください。")
         else:
+            say = ""
             te = ["ぐー", "ちょき", "ぱー"]
             t = random.choice(te)
             if mc.split(" ")[1] == "p":
-                await message.channel.send("*あなた* > **ぱー**")
+                say += "*あなた* > **ぱー**\n"
             elif mc.split(" ")[1] == "g":
-                await message.channel.send("*あなた* > **ぐー**")
+                say += "*あなた* > **ぐー**\n"
             else:
-                await message.channel.send("*あなた* > **ちょき**")
-            await message.channel.send(f"*BOT* > **{t}**")
+                say += "*あなた* > **ちょき**\n"
+            say += f"*BOT* > **{t}**\n"
             toexit = True
 
             if t == "ぐー" and mc.split(" ")[1] == "p":
-                await message.channel.send("**あなたのかち！** (ちょっとくやしい...)")
+                say += "**あなたのかち！** (ちょっとくやしい...)\n"
             elif t == "ぐー" and mc.split(" ")[1] == "g":
-                await message.channel.send("**あいこ！** (もういちど、`/jyanken [p|g|c]` でじゃんけんできます。)")
+                say += "**あいこ！** (もういちど、`/jyanken [p|g|c]` でじゃんけんできます。)\n"
                 toexit = False
             elif t == "ぐー" and mc.split(" ")[1] == "c":
-                await message.channel.send("**あなたのまけ！** (やったー！)")
+                say += "**あなたのまけ！** (やったー！)\n"
             elif t == "ちょき" and mc.split(" ")[1] == "p":
-                await message.channel.send("**あなたのまけ！** (やったー！)")
+                say += "**あなたのまけ！** (やったー！)\n"
             elif t == "ちょき" and mc.split(" ")[1] == "g":
-                await message.channel.send("**あなたのかち！** (ちょっとくやしい...)")
+                say += "**あなたのかち！** (ちょっとくやしい...)\n"
             elif t == "ちょき" and mc.split(" ")[1] == "c":
-                await message.channel.send("**あいこ！** (もういちど、`/jyanken [p|g|c]` でじゃんけんできます。)")
+                say += "**あいこ！** (もういちど、`/jyanken [p|g|c]` でじゃんけんできます。)\n"
                 toexit = False
             elif t == "ぱー" and mc.split(" ")[1] == "p":
-                await message.channel.send("**あいこ！** (もういちど、`/jyanken [p|g|c]` でじゃんけんできます。)")
+                say += "**あいこ！** (もういちど、`/jyanken [p|g|c]` でじゃんけんできます。)\n"
                 toexit = False
             elif t == "ぱー" and mc.split(" ")[1] == "g":
-                await message.channel.send("**あなたのまけ！** (やったー！)")
+                say += "**あなたのまけ！** (やったー！)\n"
             elif t == "ぱー" and mc.split(" ")[1] == "c":
-                await message.channel.send("**あなたのかち！** (ちょっとくやしい...)")
+                say += "**あなたのかち！** (ちょっとくやしい...)\n"
 
             if toexit:
-                await message.channel.send("じゃんけんを終了します。まったねー！")
+                say += "じゃんけんを終了します。まったねー！"
                 await client.change_presence(
                     activity=discord.Activity(type=discord.ActivityType.playing, name='ひまだよーあそんでよー'))
                 self.jyanken_f = False
+            await message.channel.send(say)
