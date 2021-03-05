@@ -69,7 +69,7 @@ async def on_message(message: discord.Message):
             p = subprocess.Popen(["git", "pull"],
                                  stdout=subprocess.PIPE,
                                  stderr=subprocess.STDOUT)
-            msg, m = process_output(p, m, msg, message)
+            msg, m = await process_output(p, m, msg, message)
             msg += "------------- EXITED -------------\nrestarting..."
             try:
                 await m.edit(content=msg)
@@ -97,7 +97,7 @@ async def on_message(message: discord.Message):
             p = subprocess.Popen(mc.split(" ")[1:],
                                  stdout=subprocess.PIPE,
                                  stderr=subprocess.STDOUT)
-            msg, m = process_output(p, m, msg, message)
+            msg, m = await process_output(p, m, msg, message)
             msg += "------------- EXITED -------------"
             await m.edit(content=msg)
         else:
