@@ -69,6 +69,10 @@ async def on_message(message:discord.Message):
             await message.channel.send(
                 "***You do not have the required permissions to execute this command. Please contact admin.***"
             )
+    elif mc == "/doya":
+        await message.channel.send(
+            "o(`･ω´･+o) ﾄﾞﾔ"
+        )
 
 
 # Botの起動とDiscordサーバーへの接続
