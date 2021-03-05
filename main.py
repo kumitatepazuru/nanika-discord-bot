@@ -6,6 +6,7 @@ import sys
 
 import discord
 
+from bmi import bmi
 from jyanken import jyanken
 from waribashi import waribashi
 
@@ -94,45 +95,7 @@ async def on_message(message:discord.Message):
     elif mc == "/help":
         pass
     elif mc.split(" ")[0] == "/bmi":
-        if len(mc.split(" ")) != 3:
-            await message.channel.send("BMI変換\n体重と身長からBMIを測定してくれます。\n/bmi [体重] [身長]")
-        else:
-            bmi = int(float(mc.split(" ")[1])/(float(mc.split(" ")[2])**2)*100.0)/100.0
-            say = "あなたのBMI: "
-            say += bmi
-            say += "\n***日本肥満学会の判断基準的には...***\n"
-            if bmi < 18.5:
-                say += "やせすぎ！ちび！\n*低体重（痩せ型）*"
-            elif bmi < 25:
-                say += "チェッ。普通かよ。面白くねえなぁ\n*普通体重*"
-            elif bmi < 30:
-                say += "ん？デブ？ああ、熊木と一緒か。\n肥満（1度）"
-            elif bmi < 35:
-                say += "こんにちはデブ！（圧\n肥満（2度）"
-            elif bmi < 40:
-                say += "お前絶対モテないぞ\n肥満（3度）"
-            else:
-                say += "一生独身でいるつもりか？？\n肥満（4度）"
-            say += "\n***WHOの判断基準的には...***\n"
-            if bmi <= 16:
-                say += "ほっっそ。スケルトンやん。\n*痩せすぎ*"
-            elif bmi <= 16.99:
-                say += "やせてんなぁ\n*痩せ*"
-            elif bmi <= 18.49:
-                say += "ん？普通？\n*痩せぎみ*"
-            elif bmi <= 24.99:
-                if bmi <= 25.00:
-                    say += "チェッ。普通かよ。面白くねえなぁ\n*普通体重*"
-                else:
-                    say += "多分普通？おもしろくねえなぁ\n*前肥満*"
-            elif bmi <= 34.99:
-                say += "ん？デブ？気のせいか。\n肥満（1度）"
-            elif bmi <= 39.99:
-                say += "ふとってんなぁ。\n肥満（2度）"
-            else:
-                say += "一生独身でいるつもりか？？\n肥満（3度）"
-            say += "\nBMI22を目指して頑張ろう！\n差分:"
-            say += 22-bmi
+        await bmi(mc, message)
 
 
 # Botの起動とDiscordサーバーへの接続
