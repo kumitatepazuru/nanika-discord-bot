@@ -73,6 +73,8 @@ async def on_message(message:discord.Message):
         await message.channel.send("o(`･ω´･+o) ﾄﾞﾔ")
     elif mc.find("どやぁ") != -1 or mc.find("どやあ") != -1 or mc.find("どや") != -1 or mc.find("どやどや") != -1:
         await message.channel.send("wwwwwwwwwwwwwwwwwwwww")
+    elif mc.find("うんち") != -1 or mc.find("うんこ") != -1:
+        await message.channel.send("トイレに行ってこい！(圧")
 
 
 # Botの起動とDiscordサーバーへの接続
