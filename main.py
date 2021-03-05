@@ -70,9 +70,9 @@ async def on_message(message:discord.Message):
                 "***You do not have the required permissions to execute this command. Please contact admin.***"
             )
     elif mc == "/doya":
-        await message.channel.send(
-            "o(`･ω´･+o) ﾄﾞﾔ"
-        )
+        await message.channel.send("o(`･ω´･+o) ﾄﾞﾔ")
+    elif mc.find("どやぁ") != -1 or mc.find("どやあ") != -1 or mc.find("どや") != -1 or mc.find("どやどや") != -1:
+        await message.channel.send("wwwwwwwwwwwwwwwwwwwww")
 
 
 # Botの起動とDiscordサーバーへの接続
