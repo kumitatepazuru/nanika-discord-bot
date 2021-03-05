@@ -7,15 +7,26 @@ import sys
 import discord
 
 from kinou.bmi import bmi
+from kinou.help import help
 from kinou.jyanken import jyanken
 from kinou.waribashi import waribashi
-from kinou.help import help
 
 with open("token") as tk:
     TOKEN = tk.read().splitlines()[0]
 
 # 接続に必要なオブジェクトを生成
 client = discord.Client()
+
+
+async def process_output(p, m, msg, message):
+    for line in iter(p.stdout.readline, b''):
+        msg += line.rstrip().decode("utf-8") + "\n"
+        try:
+            await m.edit(content=msg)
+        except discord.errors.HTTPException:
+            msg = msg.splitlines()[-1]
+            m = await message.channel.send(msg)
+    return msg, m
 
 
 # 起動時に動作する処理
@@ -39,7 +50,7 @@ w = waribashi()
 
 # メッセージ受信時に動作する処理
 @client.event
-async def on_message(message:discord.Message):
+async def on_message(message: discord.Message):
     global jyanken_f
     mc = message.content
     if mc.find("おはよう") != -1:
@@ -55,16 +66,18 @@ async def on_message(message:discord.Message):
             msg = "You had the required permissions for this command.\nExecute the command.\n***The bot will be " \
                   "temporarily unavailable!***\n------------- LOG -------------\n"
             m: discord.Message = await message.channel.send(msg)
-            p = subprocess.Popen(["git","pull"],
+            p = subprocess.Popen(["git", "pull"],
                                  stdout=subprocess.PIPE,
                                  stderr=subprocess.STDOUT)
-            for line in iter(p.stdout.readline, b''):
-                msg += line.rstrip().decode("utf-8")+"\n"
-                await m.edit(content=msg)
+            msg, m = process_output(p, m, msg, message)
             msg += "------------- EXITED -------------\nrestarting..."
-            await m.edit(content=msg)
+            try:
+                await m.edit(content=msg)
+            except discord.errors.HTTPException:
+                msg = msg.splitlines()[-1]
+                await message.channel.send(msg)
             print("exit.")
-            with open("ID_DISCORD_CL","w") as f:
+            with open("ID_DISCORD_CL", "w") as f:
                 f.write(str(message.channel.id))
             sys.exit()
         else:
@@ -84,9 +97,7 @@ async def on_message(message:discord.Message):
             p = subprocess.Popen(mc.split(" ")[1:],
                                  stdout=subprocess.PIPE,
                                  stderr=subprocess.STDOUT)
-            for line in iter(p.stdout.readline, b''):
-                msg += line.rstrip().decode("utf-8")+"\n"
-                await m.edit(content=msg)
+            msg, m = process_output(p, m, msg, message)
             msg += "------------- EXITED -------------"
             await m.edit(content=msg)
         else:
