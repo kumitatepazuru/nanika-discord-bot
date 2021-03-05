@@ -2,7 +2,8 @@ async def bmi(mc, message):
     if len(mc.split(" ")) != 3:
         await message.channel.send("BMI変換\n体重と身長からBMIを測定してくれます。\n/bmi [体重] [身長]")
     else:
-        bmi_math = int(float(mc.split(" ")[1]) / (float(mc.split(" ")[2]) / 100) ** 2 * 100) / 100.0
+        bmi_math = float(mc.split(" ")[1]) / (float(mc.split(" ")[2]) ** 2) * 100.0
+        print(bmi_math)
         say = "あなたのBMI: "
         say += str(bmi_math)
         say += "\n***日本肥満学会の判断基準的には...***\n"
@@ -18,7 +19,7 @@ async def bmi(mc, message):
             say += "お前絶対モテないぞ\n肥満（3度）"
         else:
             say += "一生独身でいるつもりか？？\n肥満（4度）"
-        say += "\n\n***WHOの判断基準的には...***\n"
+        say += "\n***WHOの判断基準的には...***\n"
         if bmi_math <= 16:
             say += "ほっっそ。スケルトンやん。\n*痩せすぎ*"
         elif bmi_math <= 16.99:
@@ -36,6 +37,6 @@ async def bmi(mc, message):
             say += "ふとってんなぁ。\n肥満（2度）"
         else:
             say += "一生独身でいるつもりか？？\n肥満（3度）"
-        say += "\n\n**BMI22を目指して頑張ろう！**\n*差分:"
-        say += str(22 - bmi_math) + "*"
+        say += "\nBMI22を目指して頑張ろう！\n差分:"
+        say += str(22 - bmi_math)
         await message.channel.send(say)
