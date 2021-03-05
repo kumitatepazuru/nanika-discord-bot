@@ -38,3 +38,4 @@ async def bmi(mc, message):
             say += "一生独身でいるつもりか？？\n肥満（3度）"
         say += "\nBMI22を目指して頑張ろう！\n差分:"
         say += 22 - bmi_math
+        await message.channel.send(say)
