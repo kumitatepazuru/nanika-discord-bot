@@ -1,8 +1,12 @@
+# BMIを計算(体重[kg], 身長[m])
+def calc_bmi(weight, height):
+    return round(weight / (height ** 2))
+
 async def bmi(mc, message):
     if len(mc.split(" ")) != 3:
         await message.channel.send("BMI変換\n体重と身長からBMIを測定してくれます。\n/bmi [体重] [身長]")
     else:
-        bmi_math = float(mc.split(" ")[1]) / (float(mc.split(" ")[2]) ** 2) * 100.0
+        bmi_math = calc_bmi(float(mc.split(" ")[1]),float(mc.split(" ")[2])/100.0)
         print(bmi_math)
         say = "あなたのBMI: "
         say += str(bmi_math)
