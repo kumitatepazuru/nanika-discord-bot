@@ -109,6 +109,8 @@ async def on_message(message: discord.Message):
         await help(message)
     elif mc.split(" ")[0] == "/bmi":
         await bmi(mc, message)
+    elif mc.find("やかましいわ") != -1:
+        await message.channel.send("w")
 
 
 # Botの起動とDiscordサーバーへの接続
