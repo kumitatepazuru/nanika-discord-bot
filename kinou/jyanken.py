@@ -20,35 +20,36 @@ class jyanken:
             say = ""
             te = ["ぐー", "ちょき", "ぱー"]
             t = random.choice(te)
-            if mc.split(" ")[1] == "p":
+            j = mc.split(" ")[1].lower()
+            if j == "p":
                 say += "*あなた* > **ぱー**\n"
-            elif mc.split(" ")[1] == "g":
+            elif j == "g":
                 say += "*あなた* > **ぐー**\n"
             else:
                 say += "*あなた* > **ちょき**\n"
             say += f"*BOT* > **{t}**\n"
             toexit = True
 
-            if t == "ぐー" and mc.split(" ")[1] == "p":
+            if t == "ぐー" and j == "p":
                 say += "**あなたのかち！** (ちょっとくやしい...)\n"
-            elif t == "ぐー" and mc.split(" ")[1] == "g":
+            elif t == "ぐー" and j == "g":
                 say += "**あいこ！** (もういちど、`/jyanken [p|g|c]` でじゃんけんできます。)\n"
                 toexit = False
-            elif t == "ぐー" and mc.split(" ")[1] == "c":
+            elif t == "ぐー" and j == "c":
                 say += "**あなたのまけ！** (やったー！)\n"
-            elif t == "ちょき" and mc.split(" ")[1] == "p":
+            elif t == "ちょき" and j == "p":
                 say += "**あなたのまけ！** (やったー！)\n"
-            elif t == "ちょき" and mc.split(" ")[1] == "g":
+            elif t == "ちょき" and j == "g":
                 say += "**あなたのかち！** (ちょっとくやしい...)\n"
-            elif t == "ちょき" and mc.split(" ")[1] == "c":
+            elif t == "ちょき" and j == "c":
                 say += "**あいこ！** (もういちど、`/jyanken [p|g|c]` でじゃんけんできます。)\n"
                 toexit = False
-            elif t == "ぱー" and mc.split(" ")[1] == "p":
+            elif t == "ぱー" and j == "p":
                 say += "**あいこ！** (もういちど、`/jyanken [p|g|c]` でじゃんけんできます。)\n"
                 toexit = False
-            elif t == "ぱー" and mc.split(" ")[1] == "g":
+            elif t == "ぱー" and j == "g":
                 say += "**あなたのまけ！** (やったー！)\n"
-            elif t == "ぱー" and mc.split(" ")[1] == "c":
+            elif t == "ぱー" and j == "c":
                 say += "**あなたのかち！** (ちょっとくやしい...)\n"
 
             if toexit:

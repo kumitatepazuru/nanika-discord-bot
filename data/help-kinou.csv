@@ -6,3 +6,4 @@
 /waribashi,あの「わりばし」ができます。（開発中）
 /restart,botを更新して再起動します。adminのロールが必要です。
 /cmd [CMD],linux(ubuntu)コマンドを実行できます。adminのロールが必要です。
+/keisan,計算ゲームができます。ランキングの仕組みもあります。（β）

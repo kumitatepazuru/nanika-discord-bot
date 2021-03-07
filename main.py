@@ -6,6 +6,7 @@ import sys
 
 import discord
 
+from kinou import keisan
 from kinou.bmi import bmi
 from kinou.help import help
 from kinou.jyanken import jyanken
@@ -44,7 +45,15 @@ async def on_ready():
 
 ohayo_list = ("おはようございまーす！", "おはよう★", "おはようでございます！", "ぉは(σ。ゝω・)σYO!!", "チャオ♪(´・ω・`)ノ")
 tadaima_list = ("ｵｶｴﾘ～!!ヽ(*≧ω≦)ﾉ", "ヾ(*ゝω・*)ノおかえり～", "帰って来た!?Σ(｀ω゜´*)三｡:+.゜ヽ(*′ﾟω`)ﾉﾞ｡:+.゜おかえりん")
-doya_list = ("(๑⁼̴̀д⁼̴́๑)ﾄﾞﾔｯ‼","(๑• ̀д•́ )✧+°ﾄﾞﾔｯ","o(`･ω´･+o) ﾄﾞﾔｧ…！","(　-`ω-)どや！","(●´ิ∀´ิ●)ﾄﾞﾔｧ","( ´´ิ∀´ิ` )","( ｰ̀ωｰ́ )","o(`･ω´･+o) ﾄﾞﾔ","( *｀ω´) ﾄﾞﾔｧ")
+doya_list = (
+    "(๑⁼̴̀д⁼̴́๑)ﾄﾞﾔｯ‼", "(๑• ̀д•́ )✧+°ﾄﾞﾔｯ", "o(`･ω´･+o) ﾄﾞﾔｧ…！", "(　-`ω-)どや！", "(●´ิ∀´ิ●)ﾄﾞﾔｧ", "( ´´ิ∀´ิ` )",
+    "( ｰ̀ωｰ́ )",
+    "o(`･ω´･+o) ﾄﾞﾔ", "( *｀ω´) ﾄﾞﾔｧ")
+sorena_list = (
+    '(╭☞• ⍛• )╭☞それな', '(╭☞•́∀•̀)╭☞\u3000それな！', '(╭☞•́•̀)╭☞', '(╭☞•́ﾛ•̀)╭☞', '(☞◑ω◑)☞', '( ﾐΦﻌΦ)╭☞', '(╭☞’ω’)╭☞',
+    '☜（ﾟ∀ﾟ☜）',
+    'σﾟﾛﾟ)σ', '(´ー`)σ', '(σ･ω･)σ', '(σ≧∀≦)σ', '(つ >ω●)つ', 'σﾟﾛﾟ)σソレナ', '(´ー`)σソレナ', '(σ･ω･)σソレナ', '(σ≧∀≦)σソレナ',
+    '(σﾟ∀ﾟ)σソレナ', '(σ*’3`)σソレナ')
 j = jyanken()
 w = waribashi()
 
@@ -93,7 +102,8 @@ async def on_message(message: discord.Message):
         await message.channel.send("トイレに行ってこい！(圧")
     elif mc.split(" ")[0] == "/cmd":
         if 799842587909423146 in list(map(lambda n: n.id, message.author.roles)):
-            msg = "You had the required permissions for this command.\nExecute the command.\n------------- LOG -------------\n"
+            msg = "You had the required permissions for this command.\nExecute the command.\n------------- LOG " \
+                  "-------------\n "
             m: discord.Message = await message.channel.send(msg)
             p = subprocess.Popen(mc.split(" ")[1:],
                                  stdout=subprocess.PIPE,
@@ -111,6 +121,10 @@ async def on_message(message: discord.Message):
         await bmi(mc, message)
     elif mc.find("やかましいわ") != -1:
         await message.channel.send("w")
+    elif mc.find("くさ") != -1 or mc.find("草") != -1 or mc.find("笑") != -1 or mc.find("www") != -1:
+        await message.channel.send(random.choice(sorena_list))
+    elif mc == "/keisan":
+        await keisan.keisan(client,message)
 
 
 # Botの起動とDiscordサーバーへの接続
