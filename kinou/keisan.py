@@ -4,7 +4,6 @@ import random
 import time
 
 import discord
-import numpy as np
 
 
 async def keisan(client: discord.client, message: discord.Message):
@@ -82,7 +81,7 @@ async def keisan(client: discord.client, message: discord.Message):
         d.append(sum(time_list))
         embed.add_field(name="総合結果！", value=str(i) + "問中" + str(i - j) + "問正解" + str(j) + "問はずれ！\n時間:" + str(
             int(sum(time_list))) + "秒!")
-        embed.add_field(name="ランキング", value=str(np.argsort(d)[-1]+1) + "位!\n1位を目指して頑張ろう！")
+        embed.add_field(name="ランキング", value=str(sorted(d).index(sum(time_list))+1) + "位!\n1位を目指して頑張ろう！")
         await msg.edit(embed=embed)
         await msg.clear_reactions()
         with open("./data/keisan_rank.json", "w") as f:
