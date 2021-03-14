@@ -6,11 +6,13 @@ import sys
 
 import discord
 
+from hannou import hannou
 from kinou import keisan
 from kinou.bmi import bmi
 from kinou.help import help
 from kinou.jyanken import jyanken
 from kinou.waribashi import waribashi
+from out import out
 
 with open("token") as tk:
     TOKEN = tk.read().splitlines()[0]
@@ -56,22 +58,21 @@ sorena_list = (
     '(σﾟ∀ﾟ)σソレナ', '(σ*’3`)σソレナ')
 j = jyanken()
 w = waribashi()
-
+h = hannou()
+o = out()
 
 # メッセージ受信時に動作する処理
 @client.event
 async def on_message(message: discord.Message):
     global jyanken_f
     mc = message.content
-    if mc.find("おはよう") != -1:
-        await message.channel.send(random.choice(ohayo_list))
-    elif mc.find("ただいま") != -1:
-        await message.channel.send(random.choice(tadaima_list))
-    elif mc.split(" ")[0] == "/jyanken":
+    await o.msg(message, mc)
+    await h.msg(message, mc)
+    if mc.split(" ")[0] == "!jyanken":
         await j.jyanken_cmd(client, message)
     # elif mc == "/waribashi":
     #     await w.waribashi_start(client, message)
-    elif mc == "/restart":
+    elif mc == "!restart":
         if 799842587909423146 in list(map(lambda n: n.id, message.author.roles)):
             msg = "You had the required permissions for this command.\nExecute the command.\n***The bot will be " \
                   "temporarily unavailable!***\n------------- LOG -------------\n"
@@ -94,13 +95,9 @@ async def on_message(message: discord.Message):
             await message.channel.send(
                 "***You do not have the required permissions to execute this command. Please contact admin.***"
             )
-    elif mc == "/doya":
+    elif mc == "!doya":
         await message.channel.send(random.choice(doya_list))
-    elif mc.find("どやぁ") != -1 or mc.find("どやあ") != -1 or mc.find("どや") != -1 or mc.find("どやどや") != -1:
-        await message.channel.send("wwwwwwwwwwwwwwwwwwwww")
-    elif mc.find("うんち") != -1 or mc.find("うんこ") != -1:
-        await message.channel.send("トイレに行ってこい！(圧")
-    elif mc.split(" ")[0] == "/cmd":
+    elif mc.split(" ")[0] == "!cmd":
         if 799842587909423146 in list(map(lambda n: n.id, message.author.roles)):
             msg = "You had the required permissions for this command.\nExecute the command.\n------------- LOG " \
                   "-------------\n "
@@ -115,17 +112,12 @@ async def on_message(message: discord.Message):
             await message.channel.send(
                 "***You do not have the required permissions to execute this command. Please contact admin.***"
             )
-    elif mc == "/help":
+    elif mc == "!help":
         await help(message)
-    elif mc.split(" ")[0] == "/bmi":
+    elif mc.split(" ")[0] == "!bmi":
         await bmi(mc, message)
-    elif mc.find("やかましいわ") != -1:
-        await message.channel.send("w")
-    elif mc.find("くさ") != -1 or mc.find("草") != -1 or mc.find("笑") != -1 or mc.find("www") != -1:
-        await message.channel.send(random.choice(sorena_list))
-    elif mc == "/keisan":
+    elif mc == "!keisan":
         await keisan.keisan(client,message)
-
 
 # Botの起動とDiscordサーバーへの接続
 client.run(TOKEN)
