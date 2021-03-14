@@ -118,6 +118,12 @@ async def on_message(message: discord.Message):
         await bmi(mc, message)
     elif mc == "!keisan":
         await keisan.keisan(client,message)
+    elif mc == "!ban":
+        with open("data/ban.png","rb") as f:
+            await message.channel.send(file=discord.File(f))
+    elif mc == "!usseewa":
+        with open("data/usseewa.mp3","rb") as f:
+            await message.channel.send(file=discord.File(f))
 
 # Botの起動とDiscordサーバーへの接続
 client.run(TOKEN)
