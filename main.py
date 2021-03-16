@@ -45,21 +45,15 @@ async def on_ready():
     await client.change_presence(activity=discord.Activity(type=discord.ActivityType.playing, name='ひまだよーあそんでよー'))
 
 
-ohayo_list = ("おはようございまーす！", "おはよう★", "おはようでございます！", "ぉは(σ。ゝω・)σYO!!", "チャオ♪(´・ω・`)ノ")
-tadaima_list = ("ｵｶｴﾘ～!!ヽ(*≧ω≦)ﾉ", "ヾ(*ゝω・*)ノおかえり～", "帰って来た!?Σ(｀ω゜´*)三｡:+.゜ヽ(*′ﾟω`)ﾉﾞ｡:+.゜おかえりん")
 doya_list = (
     "(๑⁼̴̀д⁼̴́๑)ﾄﾞﾔｯ‼", "(๑• ̀д•́ )✧+°ﾄﾞﾔｯ", "o(`･ω´･+o) ﾄﾞﾔｧ…！", "(　-`ω-)どや！", "(●´ิ∀´ิ●)ﾄﾞﾔｧ", "( ´´ิ∀´ิ` )",
     "( ｰ̀ωｰ́ )",
     "o(`･ω´･+o) ﾄﾞﾔ", "( *｀ω´) ﾄﾞﾔｧ")
-sorena_list = (
-    '(╭☞• ⍛• )╭☞それな', '(╭☞•́∀•̀)╭☞\u3000それな！', '(╭☞•́•̀)╭☞', '(╭☞•́ﾛ•̀)╭☞', '(☞◑ω◑)☞', '( ﾐΦﻌΦ)╭☞', '(╭☞’ω’)╭☞',
-    '☜（ﾟ∀ﾟ☜）',
-    'σﾟﾛﾟ)σ', '(´ー`)σ', '(σ･ω･)σ', '(σ≧∀≦)σ', '(つ >ω●)つ', 'σﾟﾛﾟ)σソレナ', '(´ー`)σソレナ', '(σ･ω･)σソレナ', '(σ≧∀≦)σソレナ',
-    '(σﾟ∀ﾟ)σソレナ', '(σ*’3`)σソレナ')
 j = jyanken()
 w = waribashi()
 h = hannou()
 o = out()
+
 
 # メッセージ受信時に動作する処理
 @client.event
@@ -117,19 +111,21 @@ async def on_message(message: discord.Message):
     elif mc.split(" ")[0] == "!bmi":
         await bmi(mc, message)
     elif mc == "!keisan":
-        await keisan.keisan(client,message)
+        await keisan.keisan(client, message)
     elif mc == "!ban":
-        with open("data/ban.png","rb") as f:
+        with open("data/ban.png", "rb") as f:
             await message.channel.send(file=discord.File(f))
     elif mc == "!usseewa":
-        with open("data/usseewa.mp3","rb") as f:
+        with open("data/usseewa.mp3", "rb") as f:
             await message.channel.send(file=discord.File(f))
     elif mc.split(" ")[0] == "!out":
         if 799842587909423146 in list(map(lambda n: n.id, message.author.roles)):
-            out_msg:discord.Message = await message.channel.fetch_message(int(mc.split(" ")[1]))
-            await o.send_msg(out_msg,"||"+out_msg.content+"||",["> **運営側が違反していると考えた任意の文字列**","> *詳しくは運営にご確認ください。*"])
+            out_msg: discord.Message = await message.channel.fetch_message(int(mc.split(" ")[1]))
+            await o.send_msg(out_msg, "||" + out_msg.content + "||",
+                             ["> **運営側が違反していると考えた任意の文字列**", "> *詳しくは運営にご確認ください。*"])
         else:
             await message.channel.send("このコマンドは運営専用です!")
+
 
 # Botの起動とDiscordサーバーへの接続
 client.run(TOKEN)
