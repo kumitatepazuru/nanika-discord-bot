@@ -24,5 +24,5 @@ class hannou:
             await message.channel.send("w")
         elif mc.find("くさ") != -1 or mc.find("草") != -1 or mc.find("笑") != -1 or mc.find("www") != -1:
             await message.channel.send(random.choice(self.hannou_list["sorena_list"]))
-        elif mc.find("やりますねぇ！！"):
+        elif mc.find("やりますねぇ！！") != -1:
             await message.channel.send(random.choice(self.doya_list))
