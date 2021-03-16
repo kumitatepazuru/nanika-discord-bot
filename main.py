@@ -125,7 +125,6 @@ async def on_message(message: discord.Message):
                              ["> **運営側が違反していると考えた任意の文字列**", "> *詳しくは運営にご確認ください。*"])
         else:
             await message.channel.send("このコマンドは運営専用です!")
-
     elif mc == "!mac":
         with open("data/1360-Double-Cheese-Burger.png", "rb") as f:
             await message.channel.send("ダブルチーズバーガー（おいしい）",file=discord.File(f))
