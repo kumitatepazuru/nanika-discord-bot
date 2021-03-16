@@ -20,7 +20,7 @@ class out:
         if ok and not message.author.bot:
             for i in self.out_list:
                 mc = mc.replace(i, "||" + i + "||")
-                await self.send_msg(message, mc, out_list)
+            await self.send_msg(message, mc, out_list)
 
     async def send_msg(self,message,mc,out_list):
         mc = "ポリシーに抵触しかねない単語が発言されました。\n問題のある単語はクリックで確認できます。\n" + mc
