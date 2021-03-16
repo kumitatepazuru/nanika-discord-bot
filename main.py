@@ -124,6 +124,12 @@ async def on_message(message: discord.Message):
     elif mc == "!usseewa":
         with open("data/usseewa.mp3","rb") as f:
             await message.channel.send(file=discord.File(f))
+    elif mc.split(" ")[0] == "!out":
+        if 799842587909423146 in list(map(lambda n: n.id, message.author.roles)):
+            out_msg:discord.Message = await message.channel.fetch_message(int(mc.split(" ")[1]))
+            await o.send_msg(out_msg,"||"+out_msg.content+"||",["> **運営側が違反していると考えた任意の文字列**","> *詳しくは運営にご確認ください。*"])
+        else:
+            await message.channel.send("このコマンドは運営専用です!")
 
 # Botの起動とDiscordサーバーへの接続
 client.run(TOKEN)
