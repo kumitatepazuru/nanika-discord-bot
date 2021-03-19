@@ -41,6 +41,9 @@ class out:
         role = guild.get_role(820478751871729695)
         await message.author.add_roles(role)
         await asyncio.sleep(self.out["player"][str(message.author.id)]*60)
+        await message.author.send(
+            "発言禁止が解除されました。"
+        )
         await message.author.remove_roles(role)
         with open(self.file, "w") as f:
             json.dump(self.out, f)
