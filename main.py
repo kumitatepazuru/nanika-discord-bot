@@ -112,9 +112,11 @@ async def on_message(message: discord.Message):
         await bmi(mc, message)
     elif mc == "!keisan":
         await keisan.keisan(client, message)
-    elif mc == "!ban":
+    elif mc.split(" ")[0] == "!ban":
         with open("data/ban.png", "rb") as f:
             await message.channel.send(file=discord.File(f))
+            if len(mc.split(" ")) == 2:
+                client.get_user(int(mc.split(" ")[1])).send(file=discord.File(f))
     elif mc == "!usseewa":
         with open("data/usseewa.mp3", "rb") as f:
             await message.channel.send(file=discord.File(f))
@@ -129,6 +131,10 @@ async def on_message(message: discord.Message):
         with open("data/1360-Double-Cheese-Burger.png", "rb") as f:
             await message.channel.send("ダブルチーズバーガー（おいしい）",file=discord.File(f))
 
+
+# @client.event
+# async def on_guild_join(guild:discord.Guild):
+#     await guild.create_role(name="発言禁止!!!!")
 
 # Botの起動とDiscordサーバーへの接続
 client.run(TOKEN)

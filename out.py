@@ -1,6 +1,5 @@
 import asyncio
 import json
-import time
 
 import discord
 
@@ -35,12 +34,12 @@ class out:
         await message.author.send(
             "今回の表現はサーバーのポリシーに抵触しかねません。発言に気をつけてください。\n今回抵触した単語\n" + "\n".join(out_list))
         await message.author.send(
-            "この事柄はすべて記録されます。\n\n今回は、"+str(self.out["player"][str(message.author.id)])+"分発言禁止になります。"
+            "この事柄はすべて記録されます。\n\n今回は、" + str(self.out["player"][str(message.author.id)]) + "分発言禁止になります。"
         )
-        guild:discord.Guild = message.channel.guild
+        guild: discord.Guild = message.channel.guild
         role = guild.get_role(820478751871729695)
         await message.author.add_roles(role)
-        await asyncio.sleep(self.out["player"][str(message.author.id)]*60)
+        await asyncio.sleep(self.out["player"][str(message.author.id)] * 60)
         await message.author.send(
             "発言禁止が解除されました。"
         )
