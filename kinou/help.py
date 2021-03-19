@@ -4,7 +4,7 @@ import discord
 
 data = csv.reader(open("./data/help-kinou.csv"))
 data2 = csv.reader(open("./data/help-hannou.csv"))
-l1 = [row for row in data2]
+l1 = [row for row in data]
 l2 = [row for row in data2]
 
 
