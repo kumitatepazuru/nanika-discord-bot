@@ -67,7 +67,7 @@ async def on_message(message: discord.Message):
     # elif mc == "/waribashi":
     #     await w.waribashi_start(client, message)
     elif mc == "!restart":
-        if 799842587909423146 in list(map(lambda n: n.id, message.author.roles)):
+        if message.author.id == 635377375739248652:
             msg = "You had the required permissions for this command.\nExecute the command.\n***The bot will be " \
                   "temporarily unavailable!***\n------------- LOG -------------\n"
             m: discord.Message = await message.channel.send(msg)
@@ -92,7 +92,7 @@ async def on_message(message: discord.Message):
     elif mc == "!doya":
         await message.channel.send(random.choice(doya_list))
     elif mc.split(" ")[0] == "!cmd":
-        if 799842587909423146 in list(map(lambda n: n.id, message.author.roles)):
+        if message.author.id == 635377375739248652:
             msg = "You had the required permissions for this command.\nExecute the command.\n------------- LOG " \
                   "-------------\n "
             m: discord.Message = await message.channel.send(msg)

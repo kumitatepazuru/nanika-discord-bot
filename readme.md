@@ -1,2 +1,5 @@
+## scope list
+- bot
+
 ## permission list
-- 8192
+- 268443648
