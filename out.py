@@ -17,9 +17,10 @@ class out:
             ok = ok or mc.find(i) != -1
             if mc.find(i) != -1:
                 out_list.append(i)
-        for i in self.out["data"]:
-            mc = mc.replace(i, "||" + i + "||")
-        await self.send_msg(message, mc, out_list)
+        if ok:
+            for i in self.out["data"]:
+                mc = mc.replace(i, "||" + i + "||")
+            await self.send_msg(message, mc, out_list)
 
     async def send_msg(self, message, mc, out_list):
         if self.out["player"].get(str(message.author.id)) is None:
