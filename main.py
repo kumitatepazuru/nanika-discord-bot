@@ -146,7 +146,7 @@ async def on_message(message: discord.Message):
                 await message.author.send("1分たったよ！")
         elif mc.split(" ")[0] == "!say":
             await message.delete()
-            message.channel.send(" ".join(mc.split(" ")[1:]))
+            await message.channel.send(" ".join(mc.split(" ")[1:]))
     elif message.author.id == 159985870458322944:
         if message.content.find("you just advanced to ") != -1:
             await message.channel.send("おしゃべりレベル"+message.content.split(" ")[-1][:-1]+"!!!")
