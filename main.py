@@ -1,4 +1,6 @@
 # インストールした discord.py を読み込む
+import asyncio
+import json
 import os
 import random
 import subprocess
@@ -44,6 +46,7 @@ async def on_ready():
         os.remove("ID_DISCORD_CL")
     await client.change_presence(activity=discord.Activity(type=discord.ActivityType.playing, name='ひまだよーあそんでよー'))
 
+
 doya_list = (
     "(๑⁼̴̀д⁼̴́๑)ﾄﾞﾔｯ‼", "(๑• ̀д•́ )✧+°ﾄﾞﾔｯ", "o(`･ω´･+o) ﾄﾞﾔｧ…！", "(　-`ω-)どや！", "(●´ิ∀´ิ●)ﾄﾞﾔｧ", "( ´´ิ∀´ิ` )",
     "( ｰ̀ωｰ́ )",
@@ -62,6 +65,7 @@ async def on_message(message: discord.Message):
         mc = message.content
         await o.msg(message, mc)
         await h.msg(message, mc)
+        guild: discord.Guild = message.channel.guild
         if mc.split(" ")[0] == "!jyanken":
             await j.jyanken_cmd(client, message)
         # elif mc == "/waribashi":
@@ -121,7 +125,12 @@ async def on_message(message: discord.Message):
             with open("data/usseewa.mp3", "rb") as f:
                 await message.channel.send(file=discord.File(f))
         elif mc.split(" ")[0] == "!out":
-            if 799842587909423146 in list(map(lambda n: n.id, message.author.roles)):
+            with open("./data/admin-role.json") as f:
+                d = json.load(f)
+            for i, id_ in enumerate(d):
+                if guild.get_role(id_) is not None:
+                    del d[i]
+            if d[0] in list(map(lambda n: n.id, message.author.roles)):
                 out_msg: discord.Message = await message.channel.fetch_message(int(mc.split(" ")[1]))
                 await o.send_msg(out_msg, "||" + out_msg.content + "||",
                                  ["> **運営側が違反していると考えた任意の文字列**", "> *詳しくは運営にご確認ください。*"])
@@ -129,8 +138,12 @@ async def on_message(message: discord.Message):
                 await message.channel.send("このコマンドは運営専用です!")
         elif mc == "!mac":
             with open("data/1360-Double-Cheese-Burger.png", "rb") as f:
-                await message.channel.send("ダブルチーズバーガー（おいしい）",file=discord.File(f))
-
+                await message.channel.send("ダブルチーズバーガー（おいしい）", file=discord.File(f))
+        elif mc == "!timer":
+            await message.author.send("100回送るよ！")
+            for i in range(100):
+                await asyncio.sleep(60)
+                await message.author.send("1分たったよ！")
 
 # @client.event
 # async def on_guild_join(guild:discord.Guild):

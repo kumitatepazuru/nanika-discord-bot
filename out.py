@@ -37,12 +37,16 @@ class out:
             "この事柄はすべて記録されます。\n\n今回は、" + str(self.out["player"][str(message.author.id)]) + "分発言禁止になります。"
         )
         guild: discord.Guild = message.channel.guild
-        role = guild.get_role(820478751871729695)
-        await message.author.add_roles(role)
-        await asyncio.sleep(self.out["player"][str(message.author.id)] * 60)
-        await message.author.send(
-            "発言禁止が解除されました。"
-        )
-        await message.author.remove_roles(role)
+        with open("./data/out-role.json") as f:
+            a = json.load(f)
+            for i in a:
+                r = guild.get_role(i)
+                if r is not None:
+                    await message.author.add_roles(r)
+                    await asyncio.sleep(self.out["player"][str(message.author.id)] * 60)
+                    await message.author.send(
+                        "発言禁止が解除されました。"
+                    )
+                    await message.author.remove_roles(r)
         with open(self.file, "w") as f:
             json.dump(self.out, f)
