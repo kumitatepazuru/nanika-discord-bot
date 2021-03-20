@@ -144,6 +144,9 @@ async def on_message(message: discord.Message):
             for i in range(100):
                 await asyncio.sleep(60)
                 await message.author.send("1分たったよ！")
+    elif message.author.id == 159985870458322944:
+        if message.content.find("you just advanced to ") != -1:
+            await message.channel.send("おしゃべりレベル"+message.content.split(" ")[-1][:-1]+"!!!")
 
 # @client.event
 # async def on_guild_join(guild:discord.Guild):
