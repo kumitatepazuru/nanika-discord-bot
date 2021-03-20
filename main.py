@@ -65,7 +65,6 @@ async def on_message(message: discord.Message):
         mc = message.content
         await o.msg(message, mc)
         await h.msg(message, mc)
-        guild: discord.Guild = message.channel.guild
         if mc.split(" ")[0] == "!jyanken":
             await j.jyanken_cmd(client, message)
         # elif mc == "/waribashi":
@@ -128,6 +127,7 @@ async def on_message(message: discord.Message):
             with open("./data/admin-role.json") as f:
                 d = json.load(f)
             for i, id_ in enumerate(d):
+                guild: discord.Guild = message.channel.guild
                 if guild.get_role(id_) is not None:
                     del d[i]
             if d[0] in list(map(lambda n: n.id, message.author.roles)):
