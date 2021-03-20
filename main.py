@@ -57,7 +57,7 @@ o = out()
 # メッセージ受信時に動作する処理
 @client.event
 async def on_message(message: discord.Message):
-    if message.author.bot:
+    if not message.author.bot:
         global jyanken_f
         mc = message.content
         await o.msg(message, mc)
