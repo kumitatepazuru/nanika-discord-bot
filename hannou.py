@@ -1,6 +1,8 @@
 import json
 import random
 
+import discord
+
 
 class hannou:
     def __init__(self, file="./data/hannou.json"):
@@ -26,3 +28,6 @@ class hannou:
             await message.channel.send(random.choice(self.hannou_list["sorena_list"]))
         elif mc.find("やりますねぇ！！") != -1:
             await message.channel.send(random.choice(self.doya_list))
+        elif mc.find("エーミール") != -1:
+            with open("./data/a615b4ca.jpg") as f:
+                await message.channel.send("エーミール（我々だ）", file=discord.File(f))
