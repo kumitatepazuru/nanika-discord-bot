@@ -19,7 +19,6 @@ class toukei:
 
         with open("./data/toukei.json") as f:
             self.toukei = json.load(f)
-
     async def on_ready(self, *args, **kwargs):
         self.toukei["on_ready"] += 1
         self.save()

@@ -23,6 +23,23 @@ with open("token") as tk:
 # 接続に必要なオブジェクトを生成
 client = discord.Client()
 
+def save():
+    global toukei
+    print(toukei)
+    if toukei is None:
+        toukei = {"on_ready": 0, "on_error": 0, "on_typing": 0, "on_message": 0, "on_raw_message_delete": 0,
+                       "on_raw_message_edit": 0, "on_raw_reaction_add": 0, "on_raw_reaction_remove": 0,
+                       "on_raw_reaction_clear": 0, "on_guild_channel_pins_update": 0}
+    with open("./data/toukei.json", "w") as f:
+        json.dump(toukei, f)
+
+
+if not os.path.isfile("./data/toukei.json"):
+    save()
+
+with open("./data/toukei.json") as f:
+    toukei = json.load(f)
+
 
 async def process_output(p, m, msg, message):
     for line in iter(p.stdout.readline, b''):
@@ -33,7 +50,6 @@ async def process_output(p, m, msg, message):
             msg = msg.splitlines()[-1]
             m = await message.channel.send(msg)
     return msg, m
-
 
 # 起動時に動作する処理
 @client.event
@@ -46,6 +62,53 @@ async def on_ready():
             await channel.send("restarted. command completed.")
         os.remove("ID_DISCORD_CL")
     await client.change_presence(activity=discord.Activity(type=discord.ActivityType.playing, name='ひまだよーあそんでよー'))
+    toukei["on_ready"] += 1
+    save()
+
+@client.event
+async def on_error(*args, **kwargs):
+    toukei["on_error"] += 1
+    save()
+
+@client.event
+async def on_typing(*args, **kwargs):
+    toukei["on_typing"] += 1
+    save()
+
+@client.event
+async def on_message(*args, **kwargs):
+    toukei["on_message"] += 1
+    save()
+
+@client.event
+async def on_raw_message_delete(*args, **kwargs):
+    toukei["on_raw_message_delete"] += 1
+    save()
+
+@client.event
+async def on_raw_message_edit(*args, **kwargs):
+    toukei["on_raw_message_edit"] += 1
+    save()
+
+@client.event
+async def on_raw_reaction_add(*args, **kwargs):
+    toukei["on_raw_reaction_add"] += 1
+    save()
+
+@client.event
+async def on_raw_reaction_remove(*args, **kwargs):
+    toukei["on_raw_reaction_remove"] += 1
+    save()
+
+@client.event
+async def on_raw_reaction_clear(*args, **kwargs):
+    toukei["on_raw_reaction_clear"] += 1
+    save()
+
+@client.event
+async def on_guild_channel_pins_update(*args, **kwargs):
+    toukei["on_guild_channel_pins_update"] += 1
+    save()
 
 
 doya_list = (
