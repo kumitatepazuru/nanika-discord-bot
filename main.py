@@ -119,8 +119,6 @@ j = jyanken()
 w = waribashi()
 h = hannou()
 o = out()
-t = toukei(client)
-
 
 # メッセージ受信時に動作する処理
 @client.event
