@@ -13,7 +13,6 @@ from kinou import keisan
 from kinou.bmi import bmi
 from kinou.help import help
 from kinou.jyanken import jyanken
-from kinou.toukei import toukei
 from kinou.waribashi import waribashi
 from out import out
 
