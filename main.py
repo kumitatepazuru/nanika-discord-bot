@@ -13,6 +13,7 @@ from kinou import keisan
 from kinou.bmi import bmi
 from kinou.help import help
 from kinou.jyanken import jyanken
+from kinou.toukei import toukei
 from kinou.waribashi import waribashi
 from out import out
 
@@ -55,6 +56,7 @@ j = jyanken()
 w = waribashi()
 h = hannou()
 o = out()
+t = toukei(client)
 
 
 # メッセージ受信時に動作する処理
@@ -147,9 +149,12 @@ async def on_message(message: discord.Message):
         elif mc.split(" ")[0] == "!say":
             await message.delete()
             await message.channel.send(" ".join(mc.split(" ")[1:]))
+        elif mc.split(" ")[0] == "!toukei":
+            await t.show_msg(message)
     elif message.author.id == 159985870458322944:
         if message.content.find("you just advanced to ") != -1:
-            await message.channel.send("おしゃべりレベル"+message.content.split(" ")[-1][:-1]+"!!!")
+            await message.channel.send("おしゃべりレベル" + message.content.split(" ")[-1][:-1] + "!!!")
+
 
 # @client.event
 # async def on_guild_join(guild:discord.Guild):
