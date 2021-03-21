@@ -124,7 +124,7 @@ async def on_message(message: discord.Message):
                     client.get_user(int(mc.split(" ")[1])).send(file=discord.File(f))
         elif mc == "!usseewa":
             with open("data/usseewa.mp3", "rb") as f:
-                await message.channel.send(file=discord.File(f))
+                await message.channel.send(files=discord.File(f))
         elif mc.split(" ")[0] == "!out":
             with open("./data/admin-role.json") as f:
                 d = json.load(f)
