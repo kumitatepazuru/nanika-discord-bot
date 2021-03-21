@@ -20,43 +20,43 @@ class toukei:
         with open("./data/toukei.json") as f:
             self.toukei = json.load(f)
 
-    def on_ready(self, *args, **kwargs):
+    async def on_ready(self, *args, **kwargs):
         self.toukei["on_ready"] += 1
         self.save()
 
-    def on_error(self, *args, **kwargs):
+    async def on_error(self, *args, **kwargs):
         self.toukei["on_error"] += 1
         self.save()
 
-    def on_typing(self, *args, **kwargs):
+    async def on_typing(self, *args, **kwargs):
         self.toukei["on_typing"] += 1
         self.save()
 
-    def on_message(self, *args, **kwargs):
+    async def on_message(self, *args, **kwargs):
         self.toukei["on_message"] += 1
         self.save()
 
-    def on_raw_message_delete(self, *args, **kwargs):
+    async def on_raw_message_delete(self, *args, **kwargs):
         self.toukei["on_raw_message_delete"] += 1
         self.save()
 
-    def on_raw_message_edit(self, *args, **kwargs):
+    async def on_raw_message_edit(self, *args, **kwargs):
         self.toukei["on_raw_message_edit"] += 1
         self.save()
 
-    def on_raw_reaction_add(self, *args, **kwargs):
+    async def on_raw_reaction_add(self, *args, **kwargs):
         self.toukei["on_raw_reaction_add"] += 1
         self.save()
 
-    def on_raw_reaction_remove(self, *args, **kwargs):
+    async def on_raw_reaction_remove(self, *args, **kwargs):
         self.toukei["on_raw_reaction_remove"] += 1
         self.save()
 
-    def on_raw_reaction_clear(self, *args, **kwargs):
+    async def on_raw_reaction_clear(self, *args, **kwargs):
         self.toukei["on_raw_reaction_clear"] += 1
         self.save()
 
-    def on_guild_channel_pins_update(self, *args, **kwargs):
+    async def on_guild_channel_pins_update(self, *args, **kwargs):
         self.toukei["on_guild_channel_pins_update"] += 1
         self.save()
 
