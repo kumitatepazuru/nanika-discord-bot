@@ -53,7 +53,7 @@ class hannou(commands.Cog):
 
     @commands.command(aliases=["d"])
     async def doya(self,ctx):
-        ctx.send(random.choice(self.doya_list))
+        await ctx.send(random.choice(self.doya_list))
 
 
 def setup(bot):
