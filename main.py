@@ -39,7 +39,7 @@ class main(commands.Bot):
                 channel = self.get_channel(int(f.read().splitlines()[0]))
                 await channel.send("restarted. command completed.")
             os.remove("ID_DISCORD_CL")
-        await self.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name='v 2.0.0'
+        await self.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name='v 2.0.3'
                                                                                                       '/powered by '
                                                                                                       'Riku Ueda'))
 
