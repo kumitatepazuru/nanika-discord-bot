@@ -47,9 +47,10 @@ class hannou(commands.Cog):
                 self.logger.info("message found エーミール message: " + mc)
                 with open("./data/a615b4ca.jpg", "rb") as f:
                     await message.channel.send("エーミール（我々だ）", file=discord.File(f))
-            elif message.author.id == 159985870458322944:
-                if message.content.find("you just advanced to ") != -1:
-                    await message.channel.send("おしゃべりレベル" + message.content.split(" ")[-1][:-1] + "!!!")
+
+        elif message.author.id == 159985870458322944:
+            if message.content.find("you just advanced to ") != -1:
+                await message.channel.send("おしゃべりレベル" + message.content.split(" ")[-1][:-1] + "!!!")
 
     @commands.command(aliases=["d"])
     async def doya(self,ctx):
