@@ -55,6 +55,7 @@ class out(commands.Cog):
             "この事柄はすべて記録されます。\n\n今回は、" + str(self.out["player"][str(ctx.author.id)]) + "分発言禁止になります。"
         )
         guild: discord.Guild = ctx.channel.guild
+        # TODO: role追加システム追加
         with open("./data/out-role.json") as f:
             a = json.load(f)
             for i in a:

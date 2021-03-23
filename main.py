@@ -14,7 +14,8 @@ INITIAL_EXTENSIONS = [
     "cogs.help",
     "cogs.keisan",
     "cogs.out",
-    "cogs.main"
+    "cogs.main",
+    "cogs.toukei"
 ]
 logging.basicConfig(level=logging.INFO,
                     format="\033[38;5;4m%(asctime)s \033[38;5;10m[%(module)s] [%(name)s]=>L%(lineno)d "
@@ -48,46 +49,10 @@ class main(commands.Bot):
                 channel = self.get_channel(int(f.read().splitlines()[0]))
                 await channel.send("restarted. command completed.")
             os.remove("ID_DISCORD_CL")
-        await self.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name='v 2.1.0'
+        await self.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name='v 2.1.1'
                                                                                                       '/powered by '
                                                                                                       'Riku Ueda'))
         self.toukei["on_ready"] += 1
-        self.save()
-
-    async def on_error(self, *args, **kwargs):
-        self.toukei["on_error"] += 1
-        self.save()
-
-    async def on_typing(self, *args, **kwargs):
-        self.toukei["on_typing"] += 1
-        self.save()
-
-    async def on_message(self, *args, **kwargs):
-        self.toukei["on_message"] += 1
-        self.save()
-
-    async def on_raw_message_delete(self, *args, **kwargs):
-        self.toukei["on_raw_message_delete"] += 1
-        self.save()
-
-    async def on_raw_message_edit(self, *args, **kwargs):
-        self.toukei["on_raw_message_edit"] += 1
-        self.save()
-
-    async def on_raw_reaction_add(self, *args, **kwargs):
-        self.toukei["on_raw_reaction_add"] += 1
-        self.save()
-
-    async def on_raw_reaction_remove(self, *args, **kwargs):
-        self.toukei["on_raw_reaction_remove"] += 1
-        self.save()
-
-    async def on_raw_reaction_clear(self, *args, **kwargs):
-        self.toukei["on_raw_reaction_clear"] += 1
-        self.save()
-
-    async def on_guild_channel_pins_update(self, *args, **kwargs):
-        self.toukei["on_guild_channel_pins_update"] += 1
         self.save()
 
     def save(self):

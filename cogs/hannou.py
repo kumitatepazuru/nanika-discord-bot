@@ -54,6 +54,7 @@ class hannou(commands.Cog):
 
     @commands.command(aliases=["d"])
     async def doya(self,ctx):
+        self.logger.info("run doya-!")
         await ctx.send(random.choice(self.doya_list))
 
 
