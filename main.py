@@ -31,6 +31,14 @@ class main(commands.Bot):
             except Exception:
                 traceback.print_exc()
 
+        self.toukei = None
+
+        if not os.path.isfile("./data/toukei.json"):
+            self.save()
+
+        with open("./data/toukei.json") as f:
+            self.toukei = json.load(f)
+
     # 起動時に動作する処理
     async def on_ready(self):
         # 起動したらターミナルにログイン通知が表示される
