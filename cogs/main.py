@@ -84,3 +84,7 @@ class main(commands.Cog):
     async def usseewa(self, ctx):
         with open("data/usseewa.mp3", "rb") as f:
             await ctx.send(file=discord.File(f))
+
+
+def setup(bot):
+    bot.add_cog(main(bot))
