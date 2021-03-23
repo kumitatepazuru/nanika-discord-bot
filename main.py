@@ -12,7 +12,8 @@ INITIAL_EXTENSIONS = [
     "cogs.bmi",
     "cogs.help",
     "cogs.keisan",
-    "cogs.out"
+    "cogs.out",
+    "cogs.main"
 ]
 logging.basicConfig(level=logging.INFO,
                     format="\033[38;5;4m%(asctime)s \033[38;5;10m[%(module)s] [%(name)s]=>L%(lineno)d "
