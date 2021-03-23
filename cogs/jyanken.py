@@ -1,26 +1,29 @@
+import logging
 import random
 
-import discord
+from discord.ext import commands
 
 
-class jyanken:
-    jyanken_f = False
-    jyanken_channel = None
+class jyanken(commands.Cog):
+    def __init__(self, bot):
+        self.bot = bot
+        self.logger = logging.getLogger(__name__)
 
-    async def jyanken_cmd(self, client, message):
-        mc = message.content
-        if not self.jyanken_f:
-            self.jyanken_f = True
-            await message.channel.send("じゃんけんを開始します。`/jyanken [p|g|c]` でじゃんけんをしてください。\nじゃんけん...")
-            await client.change_presence(activity=discord.Game(message.channel.name + " でじゃんけん"))
-            self.jyanken_channel = message.channel
-        elif len(mc.split(" ")) == 1:
-            await message.channel.send("じゃんけんは"+message.channel.name + " ですでに開始しています。`/jyanken [p|g|c]` でじゃんけんをしてください。")
+        self.jyanken_f = []
+
+    @commands.command(aliases=['j'])
+    async def jyanken(self, ctx: commands.Context, *t_):
+        if ctx.author.id not in self.jyanken_f:
+            self.jyanken_f.append(ctx.author.id)
+            self.logger.info("start jyanken")
+            await ctx.send("じゃんけんを開始します。`!jyanken [p|g|c]` でじゃんけんをしてください。\nじゃんけん...")
+        elif len(t_) == 0:
+            await ctx.channel.send("じゃんけんは `" + ctx.channel.name + "` ですでに開始しています。`!jyanken [p|g|c]` でじゃんけんをしてください。")
         else:
             say = ""
             te = ["ぐー", "ちょき", "ぱー"]
             t = random.choice(te)
-            j = mc.split(" ")[1].lower()
+            j = t_[0].lower()
             if j == "p":
                 say += "*あなた* > **ぱー**\n"
             elif j == "g":
@@ -42,10 +45,10 @@ class jyanken:
             elif t == "ちょき" and j == "g":
                 say += "**あなたのかち！** (ちょっとくやしい...)\n"
             elif t == "ちょき" and j == "c":
-                say += "**あいこ！** (もういちど、`/jyanken [p|g|c]` でじゃんけんできます。)\n"
+                say += "**あいこ！** (もういちど、`!jyanken [p|g|c]` でじゃんけんできます。)\n"
                 toexit = False
             elif t == "ぱー" and j == "p":
-                say += "**あいこ！** (もういちど、`/jyanken [p|g|c]` でじゃんけんできます。)\n"
+                say += "**あいこ！** (もういちど、`!jyanken [p|g|c]` でじゃんけんできます。)\n"
                 toexit = False
             elif t == "ぱー" and j == "g":
                 say += "**あなたのまけ！** (やったー！)\n"
@@ -53,8 +56,13 @@ class jyanken:
                 say += "**あなたのかち！** (ちょっとくやしい...)\n"
 
             if toexit:
+                self.logger.info("end jyanken")
                 say += "じゃんけんを終了します。まったねー！"
-                await client.change_presence(
-                    activity=discord.Activity(type=discord.ActivityType.playing, name='ひまだよーあそんでよー'))
-                self.jyanken_f = False
-            await message.channel.send(say)
+                self.jyanken_f.remove(ctx.author.id)
+            else:
+                self.logger.info("it 'aiko' jyanken")
+            await ctx.send(say)
+
+
+def setup(bot):
+    bot.add_cog(jyanken(bot))
