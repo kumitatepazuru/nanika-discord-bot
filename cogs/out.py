@@ -37,7 +37,8 @@ class out(commands.Cog):
             if ok:
                 for i in self.out["data"]:
                     mc = mc.replace(i, "||" + i + "||")
-                await self.send_msg(self.bot.get_context(message), mc, out_list)
+                ctx = await self.bot.get_context(message)
+                await self.send_msg(ctx, mc, out_list)
 
     async def send_msg(self, ctx:commands.Context, mc, out_list):
         if self.out["player"].get(str(ctx.author.id)) is None:
