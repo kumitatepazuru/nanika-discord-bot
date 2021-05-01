@@ -13,7 +13,7 @@ INITIAL_EXTENSIONS = [
     "cogs.bmi",
     "cogs.help",
     "cogs.keisan",
-    "cogs.out",
+    # "cogs.out",
     "cogs.main",
     "cogs.toukei"
 ]

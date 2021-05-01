@@ -6,6 +6,7 @@ import time
 
 import discord
 from discord.ext import commands
+import discord.gateway
 
 
 class keisan(commands.Cog):
@@ -56,7 +57,7 @@ class keisan(commands.Cog):
                 embed.clear_fields()
                 embed.add_field(name="5問中" + str(i + 1) + "問目",
                                 value="経過時間:" + str(int(sum(time_list))) + "秒\n" + str(k1) + "+" + str(k2) +
-                                      "\n終わったら:OK:を選択してください。")
+                                      "\n終わったら :OK: を選択してください。")
                 if kekka_msg != "":
                     embed.add_field(name="結果", value=kekka_msg, inline=True)
                 await msg.edit(embed=embed)
