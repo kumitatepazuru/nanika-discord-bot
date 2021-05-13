@@ -1,7 +1,6 @@
 import json
 import logging
 import os
-import sys
 import traceback
 
 import discord
@@ -44,7 +43,7 @@ class main(commands.Bot):
     async def on_ready(self):
         # 起動したらターミナルにログイン通知が表示される
         logging.info('Bot logged')
-        if len(sys.argv) == 2:
+        if os.path.isfile("ID_DISCORD_CL"):
             with open("ID_DISCORD_CL") as f:
                 channel = self.get_channel(int(f.read().splitlines()[0]))
                 await channel.send("restarted. command completed.")
@@ -71,4 +70,4 @@ if __name__ == '__main__':
         TOKEN = tk.read().splitlines()[0]
 
     bot = main(command_prefix='!', help_command=None)  # command_prefixはコマンドの最初の文字として使うもの。 e.g. !ping
-    bot.run(TOKEN)  # Botのトークン
+    bot.run(os.environ.get("TOKEN"))  # Botのトークン

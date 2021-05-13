@@ -3,7 +3,6 @@ import resource
 import time
 
 import discord
-import numpy as np
 import sys
 resource.setrlimit(resource.RLIMIT_STACK, (-1, -1))
 print(resource.getrlimit(resource.RLIMIT_STACK))
