@@ -66,8 +66,8 @@ class main(commands.Bot):
 
 # MyBotのインスタンス化及び起動処理。
 if __name__ == '__main__':
-    with open("token") as tk:
-        TOKEN = tk.read().splitlines()[0]
+    # with open("token") as tk:
+    #     TOKEN = tk.read().splitlines()[0]
 
     bot = main(command_prefix='!', help_command=None)  # command_prefixはコマンドの最初の文字として使うもの。 e.g. !ping
     bot.run(os.environ.get("TOKEN"))  # Botのトークン
